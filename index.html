@@ -11,13 +11,39 @@
   <div class="page" id="page-root">
     <header class="masthead">
       <div class="masthead-left">
-        <div class="logo-crest" aria-hidden="true">
-          <svg viewBox="0 0 100 100" class="dragon">
-            <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="6"/>
-            <path d="M30 60 Q40 30 68 36 Q74 38 70 46 Q66 52 52 56 Q40 58 30 60 Z" fill="var(--accent)"/>
+        <!-- SVG DRAGÓN INSPIRADO (original) -->
+        <div class="logo-wrap" aria-hidden="true">
+          <svg class="mk-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo dragón">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#f0c75e"/>
+                <stop offset="0.45" stop-color="#e28a22"/>
+                <stop offset="1" stop-color="#d73f2a"/>
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="96" fill="none" stroke="#0a0a0a" stroke-width="8"/>
+            <circle cx="100" cy="100" r="86" fill="url(#g1)"/>
+            <!-- dragon silhouette: stylized and original -->
+            <path d="M140 45
+                     C128 52,120 62,115 74
+                     C110 86,104 92,94 98
+                     C84 104,72 108,58 110
+                     C72 118,88 122,102 128
+                     C116 134,122 146,118 156
+                     C110 172,86 182,68 178
+                     C54 175,44 164,36 150
+                     C44 146,52 136,66 132
+                     C78 128,92 122,104 116
+                     C116 110,126 102,132 94
+                     C138 86,148 72,150 58
+                     C152 44,148 40,140 45Z"
+                  fill="#0a0a0a" transform="translate(20,0) scale(0.9)"/>
+            <!-- tongue / whiskers -->
+            <path d="M150 72 C160 78,170 84,178 92" stroke="#0a0a0a" stroke-width="4" fill="none" stroke-linecap="round"/>
           </svg>
         </div>
       </div>
+
       <div class="masthead-right">
         <h1 class="title flicker">GOLPE Y FUERA</h1>
         <h2 class="subtitle">TORNEO RELÁMPAGO — MORTAL KOMBAT 1</h2>
@@ -26,9 +52,8 @@
     </header>
 
     <main class="container">
-      <section class="left-col">
-
-        <!-- Transmisión -->
+      <!-- IZQUIERDA: stream + countdown -->
+      <section class="col-left">
         <div class="card stream-card">
           <div class="card-head">
             <h3>Twitch — Transmisión en vivo</h3>
@@ -38,9 +63,10 @@
             </div>
           </div>
 
-          <!-- TWITCH EMBED CORREGIDO -->
           <div id="twitch-embed" class="embed">
+            <!-- IMPORTANTE: cambia channel= y parent= a tus valores reales cuando publiques -->
             <iframe
+              id="twitch-iframe"
               src="https://player.twitch.tv/?channel=j3tr0_6&parent=gkevincl.github.io&muted=false"
               allowfullscreen
               frameborder="0"
@@ -49,17 +75,16 @@
             ></iframe>
           </div>
 
-          <!-- Countdown -->
           <div class="countdown" aria-live="polite">
             <div class="countdown-label">Cuenta regresiva</div>
             <div id="countdown-timer" class="countdown-timer">--:--:--</div>
-            <div id="countdown-caption" class="countdown-caption">
-              Faltan para el Golpe y Fuera — Jetro Invitational
-            </div>
+            <div id="countdown-caption" class="countdown-caption">Faltan para el Golpe y Fuera — Jetro Invitational</div>
           </div>
         </div>
+      </section>
 
-        <!-- Info del torneo -->
+      <!-- DERECHA: info del torneo -->
+      <aside class="col-right">
         <div class="card info-card">
           <h3>Información del torneo</h3>
           <ul class="info-list">
@@ -74,101 +99,111 @@
             <span>Fernando</span><span>Luis</span><span>Santiago</span>
           </div>
         </div>
-      </section>
-
-      <aside class="right-col">
-
-        <!-- Challonge 1 -->
-        <div class="card embed-card">
-          <h3>Tabla de puntuaciones — Fase de grupos</h3>
-          <div id="challonge-groups" class="embed embed-placeholder">
-            <iframe src="https://challonge.com/es/9jjzzai0/module"
-              width="100%" height="500" frameborder="0"
-              scrolling="auto" allowtransparency="true"></iframe>
-          </div>
-        </div>
-
-        <!-- Challonge 2 -->
-        <div class="card embed-card">
-          <h3>Bracket final</h3>
-          <div id="challonge-bracket-final" class="embed embed-placeholder">
-            <iframe src="https://challonge.com/es/9jjzzai0/module"
-              width="100%" height="500" frameborder="0"
-              scrolling="auto" allowtransparency="true"></iframe>
-          </div>
-        </div>
-
       </aside>
     </main>
 
+    <!-- EMBEDS FULL WIDTH (abajo) -->
+    <section class="embeds-full">
+      <div class="embed-row">
+        <div class="card embed-card wide">
+          <h3>Tabla de puntuaciones — Fase de grupos</h3>
+          <div class="embed embed-large">
+            <iframe src="https://challonge.com/es/9jjzzai0/module"
+                    width="100%" height="720" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="embed-row">
+        <div class="card embed-card wide">
+          <h3>Bracket final</h3>
+          <div class="embed embed-large">
+            <iframe src="https://challonge.com/es/9jjzzai0/module"
+                    width="100%" height="720" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <footer class="site-footer">
       <div>Host & Organización: <strong>Jetro Producciones</strong></div>
+      <div class="credits">Diseño inspirado en póster • Hecho con ❤️</div>
     </footer>
   </div>
 
   <!-- SCRIPTS -->
   <script>
-    (function () {
+  (function () {
+    // --- Configuración rápida
+    // Cambia a la fecha/hora del torneo (formato ISO)
+    const tournamentDateStr = '2025-12-13T15:00:00';
+    const targetDate = new Date(tournamentDateStr);
 
-      /* COUNTDOWN — Fecha corregida */
-      const tournamentDateStr = '2025-12-13T15:00:00';
-      const targetDate = new Date(tournamentDateStr);
+    // Countdown
+    const cdTimer = document.getElementById('countdown-timer');
+    const cdCaption = document.getElementById('countdown-caption');
 
-      const cdTimer = document.getElementById('countdown-timer');
-      const cdCaption = document.getElementById('countdown-caption');
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
 
-      function updateCountdown() {
-        const now = new Date();
-        const diff = targetDate - now;
-
-        if (diff <= 0) {
-          cdTimer.textContent = 'EN VIVO / FINALIZADO';
-          cdCaption.textContent = 'El torneo ha empezado o ya terminó.';
-          clearInterval(cdInterval);
-          return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000*60*60)) % 24);
-        const minutes = Math.floor((diff / (1000*60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        const parts = [];
-        if (days) parts.push(days + 'd');
-        parts.push(String(hours).padStart(2,'0') + 'h');
-        parts.push(String(minutes).padStart(2,'0') + 'm');
-        parts.push(String(seconds).padStart(2,'0') + 's');
-
-        cdTimer.textContent = parts.join(' ');
+      if (isNaN(targetDate.getTime())) {
+        cdTimer.textContent = '--:--:--';
+        cdCaption.textContent = 'Fecha no configurada correctamente';
+        return;
       }
 
-      updateCountdown();
-      const cdInterval = setInterval(updateCountdown, 1000);
+      if (diff <= 0) {
+        cdTimer.textContent = 'EN VIVO / FINALIZADO';
+        cdCaption.textContent = 'El torneo ha empezado o ya terminó.';
+        clearInterval(cdInterval);
+        return;
+      }
 
-      /* Open Twitch */
-      document.getElementById('open-twitch').addEventListener('click', function () {
-        window.open('https://www.twitch.tv/j3tr0_6', '_blank');
-      });
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000*60*60)) % 24);
+      const minutes = Math.floor((diff / (1000*60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
 
-      /* FULLSCREEN – Modo TV mejorado */
-      const tvBtn = document.getElementById('tv-mode');
-      tvBtn.addEventListener('click', function () {
-        const el = document.documentElement; // fullscreen real del documento
-        if (!document.fullscreenElement) {
-          el.requestFullscreen?.();
-        } else {
-          document.exitFullscreen?.();
-        }
-      });
+      const parts = [];
+      if (days) parts.push(days + 'd');
+      parts.push(String(hours).padStart(2,'0') + 'h');
+      parts.push(String(minutes).padStart(2,'0') + 'm');
+      parts.push(String(seconds).padStart(2,'0') + 's');
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && document.fullscreenElement) {
-          document.exitFullscreen?.();
-        }
-      });
+      cdTimer.textContent = parts.join(' ');
+    }
 
-    })();
+    updateCountdown();
+    const cdInterval = setInterval(updateCountdown, 1000);
+
+    // Open Twitch
+    document.getElementById('open-twitch').addEventListener('click', function () {
+      window.open('https://www.twitch.tv/j3tr0_6', '_blank');
+    });
+
+    // Modo TV (fullscreen del documento)
+    const tvBtn = document.getElementById('tv-mode');
+    tvBtn.addEventListener('click', function () {
+      const el = document.documentElement;
+      if (!document.fullscreenElement) {
+        el.requestFullscreen?.().catch(()=>{ /* algunos navegadores necesitan gesto del usuario */ });
+      } else {
+        document.exitFullscreen?.();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.fullscreenElement) {
+        document.exitFullscreen?.();
+      }
+    });
+
+    // Optional: if you host elsewhere, update the twitch iframe parent param programmatically:
+    // const twitchIframe = document.getElementById('twitch-iframe');
+    // twitchIframe.src = `https://player.twitch.tv/?channel=TU_CANAL&parent=TU_DOMINIO&muted=false`;
+
+  })();
   </script>
-
 </body>
 </html>
