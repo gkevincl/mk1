@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Golpe y Fuera — MK1 | Jetro Invitational</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Torneo relámpago Golpe y Fuera — Mortal Kombat 1. Transmisión, resultados y brackets." />
+</head>
+<body>
+  <div class="page" id="page-root">
+    <header class="masthead">
+      <div class="masthead-left">
+        <div class="logo-crest" aria-hidden="true">
+          <!-- Logo estilo dragón simple en CSS -->
+          <svg viewBox="0 0 100 100" class="dragon">
+            <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="6"/>
+            <path d="M30 60 Q40 30 68 36 Q74 38 70 46 Q66 52 52 56 Q40 58 30 60 Z" fill="var(--accent)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="masthead-right">
+        <h1 class="title flicker">GOLPE Y FUERA</h1>
+        <h2 class="subtitle">TORNEO RELÁMPAGO — MORTAL KOMBAT 1</h2>
+        <p class="meta">Jueves 11 — 3:00 PM · Casa de Gerald</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="left-col">
+        <!-- Transmisión -->
+        <div class="card stream-card">
+          <div class="card-head">
+            <h3>Twitch — Transmisión en vivo</h3>
+            <div class="stream-actions">
+              <button id="open-twitch" class="btn small">Abrir en Twitch</button>
+              <button id="tv-mode" class="btn small">Modo TV</button>
+            </div>
+          </div>
+
+          <!-- REEMPLAZA channel_name por tu canal. Si prefieres usar un embed de Twitch distinto, pégalo aquí. -->
+          <div id="twitch-embed" class="embed">
+            <iframe
+              src="https://player.twitch.tv/?channel=channel_name&parent=example.com&muted=false"
+              allowfullscreen
+              frameborder="0"
+              scrolling="no"
+              title="Twitch Stream"
+            ></iframe>
+          </div>
+
+          <div class="countdown" aria-live="polite">
+            <div class="countdown-label">Cuenta regresiva</div>
+            <div id="countdown-timer" class="countdown-timer">--:--:--</div>
+            <div id="countdown-caption" class="countdown-caption">Faltan para el Golpe y Fuera — Jetro Invitational</div>
+          </div>
+        </div>
+
+        <!-- Info del torneo -->
+        <div class="card info-card">
+          <h3>Información del torneo</h3>
+          <ul class="info-list">
+            <li><strong>Formato:</strong> FT2 — Eliminación simple</li>
+            <li><strong>Inscripción:</strong> Lista cerrada · 16 jugadores</li>
+            <li><strong>Reglas rápidas:</strong> Sin pausar, sin glitches, descalificación por mal comportamiento.</li>
+          </ul>
+
+          <h4>Participantes</h4>
+          <div class="players">
+            <!-- reemplaza con tu lista -->
+            <span>Gerald</span><span>Jetro</span><span>Camila</span><span>Roberto</span>
+            <span>Andrés</span><span>Luisa</span><span>Diego</span><span>Sofía</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="right-col">
+        <!-- Tres embebidos de Challonge -->
+        <div class="card embed-card">
+          <h3>Tabla de puntuaciones — Fase de grupos</h3>
+          <!-- Pega aquí el código de embed de Challonge (o reemplaza el iframe src) -->
+          <div id="challonge-groups" class="embed embed-placeholder">
+            <!-- EJEMPLO: pega el <iframe> que Challonge te da -->
+            <!-- <iframe src="https://challonge.com/your-tournament/module" ...></iframe> -->
+            <div class="placeholder-text">Pega aquí el embed de Challonge (Grupos)</div>
+          </div>
+        </div>
+
+        <div class="card embed-card">
+          <h3>Llaves por grupos</h3>
+          <div id="challonge-brackets-groups" class="embed embed-placeholder">
+            <div class="placeholder-text">Pega aquí el embed de Challonge (Llaves por grupos)</div>
+          </div>
+        </div>
+
+        <div class="card embed-card">
+          <h3>Bracket final</h3>
+          <div id="challonge-bracket-final" class="embed embed-placeholder">
+            <div class="placeholder-text">Pega aquí el embed de Challonge (Bracket final)</div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="site-footer">
+      <div>Host & Organización: <strong>Jetro Producciones</strong></div>
+      <div class="credits">Diseño inspirado en póster MK • Hecho con ❤️</div>
+    </footer>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    /* -----------------------
+       CONFIGURACIÓN RÁPIDA
+       - Cambia la fecha target en tournamentDateStr.
+       - Cambia "channel_name" por tu canal de Twitch en el iframe src (también el parámetro parent debe ser tu dominio cuando publiques).
+       - Pega los embed codes de Challonge dentro de los divs con ids:
+         #challonge-groups, #challonge-brackets-groups, #challonge-bracket-final
+    -------------------------*/
+    (function () {
+      // --- Countdown config (ajusta la fecha/hora ISO)
+      const tournamentDateStr = '2025-12-11T15:00:00'; // <-- modifica aquí a la fecha real (YYYY-MM-DDTHH:MM:SS)
+      const targetDate = new Date(tournamentDateStr);
+
+      const cdTimer = document.getElementById('countdown-timer');
+      const cdCaption = document.getElementById('countdown-caption');
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+        if (diff <= 0) {
+          cdTimer.textContent = 'EN VIVO / FINALIZADO';
+          cdCaption.textContent = 'El torneo ha empezado o ya terminó.';
+          clearInterval(cdInterval);
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000*60*60)) % 24);
+        const minutes = Math.floor((diff / (1000*60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        const parts = [];
+        if (days) parts.push(days + 'd');
+        parts.push(String(hours).padStart(2,'0') + 'h');
+        parts.push(String(minutes).padStart(2,'0') + 'm');
+        parts.push(String(seconds).padStart(2,'0') + 's');
+        cdTimer.textContent = parts.join(' ');
+      }
+      updateCountdown();
+      const cdInterval = setInterval(updateCountdown, 1000);
+
+      // --- Open Twitch in new tab
+      document.getElementById('open-twitch').addEventListener('click', function () {
+        // Cambia a tu canal real
+        window.open('https://www.twitch.tv/channel_name', '_blank');
+      });
+
+      // --- TV mode (fullscreen)
+      const tvBtn = document.getElementById('tv-mode');
+      tvBtn.addEventListener('click', function () {
+        const el = document.getElementById('page-root');
+        if (!document.fullscreenElement) {
+          el.requestFullscreen?.();
+        } else {
+          document.exitFullscreen?.();
+        }
+      });
+
+      // --- Accessibility: Esc to exit fullscreen
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && document.fullscreenElement) {
+          document.exitFullscreen?.();
+        }
+      });
+
+      // --- OPTIONAL: if you want to auto-replace Challonge placeholders with actual iframes dynamically,
+      // you can insert HTML here (not enabled by default for safety).
+    })();
+  </script>
+</body>
+</html>
